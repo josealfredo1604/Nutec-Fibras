@@ -1,0 +1,3 @@
+[    1879ms] [LOG] %c%s color: red; background: yellow; font-size: 24px; ADVERTENCIA @ :57
+[    1882ms] [LOG] %c%s font-size: 18px; Si usas esta consola, un atacante podría suplantar tu identidad y robar tu información a través de un ataque llamado Self-XSS.
+No ingreses ni pegues ningún código que no entiendas. @ :57

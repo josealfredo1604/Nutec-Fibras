@@ -1,0 +1,77 @@
+- generic [ref=f3e1]:
+  - banner [ref=f3e2]:
+    - link "PageSpeed Insights logo PageSpeed Insights" [ref=f3e3] [cursor=pointer]:
+      - /url: ./
+      - img "PageSpeed Insights logo" [ref=f3e4]
+      - generic [ref=f3e5]: PageSpeed Insights
+    - generic [ref=f3e6]:
+      - button "Copiar vínculo" [ref=f3e8]
+      - generic [ref=f3e16]:
+        - generic [ref=f3e18]: Documentos
+        - link "Documentos" [ref=f3e19] [cursor=pointer]:
+          - /url: https://developers.google.com/speed/docs/insights/v5/about
+  - generic [ref=f3e26]:
+    - generic [ref=f3e27]:
+      - generic [ref=f3e28]: Este sitio utiliza cookies de Google para brindar sus servicios y analizar el tráfico.
+      - generic [ref=f3e29]:
+        - generic [ref=f3e31]:
+          - generic [ref=f3e33]: Obtén más información.
+          - link "Obtén más información." [ref=f3e34] [cursor=pointer]:
+            - /url: https://policies.google.com/technologies/cookies
+        - button "Entendido" [ref=f3e36]
+    - generic [ref=f3e40]:
+      - generic [ref=f3e41]:
+        - textbox [active] [ref=f3e43]:
+          - /placeholder: Ingresar la URL de una página web
+        - paragraph [ref=f3e45]: Ingresa una URL válida
+      - button "Analizar" [ref=f3e47]
+    - generic [ref=f3e51]: No existe un informe para el ID https-www-nutec-com-es-productos-e-ingenieria-colchas.
+  - contentinfo [ref=f3e53]:
+    - generic [ref=f3e54]:
+      - generic [ref=f3e55]:
+        - generic [ref=f3e56]:
+          - generic [ref=f3e57]: Más información acerca de PageSpeed Insights
+          - link "Novedades" [ref=f3e59] [cursor=pointer]:
+            - /url: https://developers.google.com/speed/docs/insights/release_notes
+          - link "Documentación" [ref=f3e61] [cursor=pointer]:
+            - /url: https://developers.google.com/speed/docs/insights/v5/about
+          - link "Más información sobre el rendimiento de la Web" [ref=f3e63] [cursor=pointer]:
+            - /url: https://developers.google.com/speed
+          - link "Haz preguntas en Stack Overflow" [ref=f3e65] [cursor=pointer]:
+            - /url: https://stackoverflow.com/questions/tagged/pagespeed-insights
+          - link "Lista de distribución" [ref=f3e67] [cursor=pointer]:
+            - /url: https://groups.google.com/g/pagespeed-insights-discuss
+        - generic [ref=f3e68]:
+          - generic [ref=f3e69]: Contenido relacionado
+          - link "Actualizaciones" [ref=f3e71] [cursor=pointer]:
+            - /url: https://developer.chrome.com/blog
+          - link "Fundamentos de la Web" [ref=f3e73] [cursor=pointer]:
+            - /url: https://developers.google.com/focus/web-development
+          - link "Casos de éxito" [ref=f3e75] [cursor=pointer]:
+            - /url: https://web.dev/case-studies
+          - link "Podcasts" [ref=f3e77] [cursor=pointer]:
+            - /url: https://web.dev/shows
+        - generic [ref=f3e78]:
+          - generic [ref=f3e79]: Conectar
+          - link "Twitter" [ref=f3e81] [cursor=pointer]:
+            - /url: https://twitter.com/ChromiumDev
+          - link "YouTube" [ref=f3e83] [cursor=pointer]:
+            - /url: https://www.youtube.com/user/ChromeDevelopers
+      - generic [ref=f3e84]:
+        - link [ref=f3e85] [cursor=pointer]:
+          - /url: https://developers.google.com/
+          - img "Google Developers Logo" [ref=f3e86]
+        - link "Chrome" [ref=f3e87] [cursor=pointer]:
+          - /url: https://developer.chrome.com/
+        - link "Firebase" [ref=f3e88] [cursor=pointer]:
+          - /url: https://firebase.google.com/
+        - link "Todos los productos" [ref=f3e89] [cursor=pointer]:
+          - /url: https://developers.google.com/products/
+      - generic [ref=f3e90]:
+        - link "Condiciones y Política de Privacidad" [ref=f3e92] [cursor=pointer]:
+          - /url: https://policies.google.com/
+        - generic [ref=f3e93]:
+          - text: Para obtener más detalles, consulta las
+          - link "Políticas del Sitio de Google Developers" [ref=f3e94] [cursor=pointer]:
+            - /url: https://developers.google.com/terms/site-policies
+          - text: .
