@@ -7,6 +7,9 @@ Sitio web de NUTEC. Trabajo actual enfocado en diagnosticar errores persistentes
 Diagnóstico de LCP confirmado y solución propuesta; pendiente aplicarla desde el Designer de Webflow (el usuario pregunta cómo hacerlo con el componente nativo Background Video).
 
 ## Cambios realizados
+- [2026-09-15] REPORTE PAGE-SEED: La auditoría equivalente a `Precarga de la imagen de Largest Contentful Paint` aparece como `Descubrimiento de solicitudes de LCP` y está en PASS / not applicable en `page-seed.html`. En el HTML publicado aún conviene limpiar preloads duplicados y usar `imagesrcset/imagesizes` para el banner responsive `Heat-transfer-program-bg-inverted`, pero esa fila ya no debería marcarse como pendiente con el reporte actual.
+- [2026-09-15] VERIFICACIÓN EN VIVO LCP LAZY: En `https://www.nutec.com/` el HTML publicado ya tiene `loading="eager"` en las imágenes candidatas a LCP iniciales: poster/video hero precargado, banner `Heat-transfer-program-bg-inverted`, `MaxWool 2300` y `SuperMag 2200`. Las imágenes siguientes del carrusel siguen en `loading="lazy"`, correcto porque no son iniciales. La API de PageSpeed devolvió 429, así que no se pudo confirmar el estado del warning directamente en PSI.
+- [2026-09-15] DECISIÓN DE ALCANCE GTM/WEBFLOW: El usuario decidió separar los pendientes del Sheet en dos frentes: (1) atacar ahora las últimas filas que sí dependen de Webflow/HTML/CSS/imagenes; (2) dejar Cliengo/GTM como tema para comentar con el cliente antes de mover triggers o diferir el widget.
 - [2026-09-14] DECISIÓN FUENTES: 'Untitled Sans' SÍ se usa en el sitio según verificación en Webflow por el usuario. NO borrar.
 - [2026-09-14] DIAGNÓSTICO DEFINITIVO PRECARGA LCP MÓVIL: La etiqueta `<img>` de MaxWool 2300 no tiene `srcset` generado en Webflow (solo `src` directo). Al tener `loading="eager"` pero no estar presente en el HTML inicial dentro de un enlace `<link rel="preload">` que coincida exactamente con la URL que descarga el browser, PageSpeed se queja. Solución: usar `imagesrcset` o precargar la URL de la imagen del banner promo/poster del hero.
 - [2026-09-14] DIAGNÓSTICO FINAL RENDIMIENTO MÓVIL: Rango estabilizado entre 51 y 71 puntos (promedio ~60-61). Las optimizaciones en Webflow (eager en imágenes LCP, preloads limpios sin Nunito v11, poster de video) elevaron la base móvil desde el 34 inicial. La variación de ±10 puntos (51 a 71) se debe 100% a la respuesta dinámica de los scripts de terceros inyectados por GTM (Cliengo, pixels) en la ventana de simulación de 10s de Lighthouse. Se documenta como el límite técnico alcanzable desde Webflow. Próximo hito al obtener acceso a GTM: diferir la carga de Cliengo a Window Loaded / Timer 3s para fijar la nota en 80+.
@@ -50,7 +53,9 @@ Diagnóstico de LCP confirmado y solución propuesta; pendiente aplicarla desde 
 - [2026-08-21] Auditoría de preconexiones: los orígenes críticos ya tienen `preconnect`, pero `cdn.jsdelivr.net` está declarado después de su preload/script de Swiper. Debe moverse antes de cualquier recurso de jsDelivr; no se deben añadir más orígenes sin confirmar recursos reales en Network/GTM.
 
 ## Decisiones importantes
-- [2026-09-14] RESPALDO DE PRECONEXIONES SECUNDARIAS: En caso de requerirse en el futuro, los orígenes retirados del `<head>` para la optimización de preconnects fueron:
+- [2026-09-14] HALLAZGO CAPTURA 2 USUARIO (CRÍTICO): El árbol de red reveló que GTM está inyectando un stack masivo de redes publicitarias y subastas (Prebid / Header Bidding: `yieldmo`, `richaudience`, `prebid.media.net`, `openx`, `rubiconproject`, `adnxs`, etc.). Estas 15+ peticiones publicitarias se ejecutan de golpe al cargar la página en móvil, sumando 4,556 ms (4.5s) de latencia crítica. Esto confirma por qué el score oscila y no pasa de 60: no es Webflow ni tus imágenes, es el contenedor de GTM inyectando redes de publicidad en el evento inicial.
+  1. En el HTML hay 5 preconnects reales publicados porque Webflow inserta su propio `cdn.prod.website-files.com` por defecto y nosotros pusimos otro igual. Al quedar 5 preconnects, Lighthouse dispara la advertencia de >4. Fix: Borrar el `website-files` manual del Head Code para dejar exactamente 4.
+  2. El árbol de red revela la causa exacta de la lentitud: `lw2.cliengo.com` (Cliengo) tarda **5,012 ms (5 segundos)** cargando `widget.css`, `widget.js` y `cdn-cgi/rum` en la navegación inicial crítica. Se reconfirma la necesidad de mover Cliengo fuera del inicio.
   - Facebook: `connect.facebook.net`, `www.facebook.com`
   - LinkedIn: `snap.licdn.com`
   - Cliengo: `s.cliengo.com`
@@ -74,6 +79,8 @@ Diagnóstico de LCP confirmado y solución propuesta; pendiente aplicarla desde 
 - `es/productos-e-ingenieria/colchas.html`: ejemplo local de una página en español con enlaces/localización mejor resueltos.
 
 ## Pendientes / Siguientes pasos
+- Priorizar fixes del Sheet que dependen de Webflow y no de GTM/Cliengo: imagen LCP lazy/preload/key requests, video/animated content si aplica, CSS no usado solo en lo posible, DOM excesivo parcial, width/height de imágenes y animaciones no compuestas.
+- Cliengo/GTM queda pendiente de decisión del cliente: posible diferir Cliengo a Window Loaded/Timer y mover tags no críticos fuera de Initialization.
 - Aplicar fix definitivo del video hero: sustituir arranque por load/idle por arranque en primera interacción (snippet ya propuesto al usuario); re-publicar y re-corre PSI.
 - Actualizar Sheet con resultados del 24-ago (texto sugerido entregado): Preconecta = resuelta; Enormes cargas útiles = sigue, causa video+tags.
 - Decisión pendiente del equipo de marketing: GTM first-party (~730KB) + fbevents + gtag dominan el peso/TBT restante.
